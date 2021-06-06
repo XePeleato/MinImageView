@@ -13,6 +13,7 @@
 #include <Vcl.Dialogs.hpp>
 #include <System.ImageList.hpp>
 #include <Vcl.ImgList.hpp>
+#include <DateUtils.hpp>
 //---------------------------------------------------------------------------
 
 #define EXTERN extern

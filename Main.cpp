@@ -158,6 +158,10 @@ __fastcall void TForm1::dirResto_FD ( int idx, TTreeNode * nodo )   {
 			TTreeNode * added = TreeView1->Items->AddChild(nodo, e[j].d_name) ;
 			InoTreeNode * addedInoTN = dynamic_cast<InoTreeNode *>(added);
 			addedInoTN->inode = e[j].d_ino;
+			strcpy(addedInoTN->nombre, e[j].d_name);
+			addedInoTN->tam = inodo[e[j].d_ino].d2_size;
+			addedInoTN->tipo = inodo[e[j].d_ino].d2_mode;
+            addedInoTN->mod = inodo[e[j].d_ino].d2_mtime;
 
 			//nodo->Item[cont]->Data = IntToStr(e[j].d_ino);
 
@@ -233,6 +237,8 @@ __fastcall void TForm1::leerBloque(zone_t bloque, void *destino)
 		}
 	}
 
+	// TODO: Probar si está el indirecto doble
+
 	if (SaveDialog1->Execute()) {
 		int fichero = FileCreate(SaveDialog1->FileName);
 		FileWrite(fichero, bufer, sizeof(char) * inodo[ino].d2_size);
@@ -244,7 +250,11 @@ __fastcall void TForm1::leerBloque(zone_t bloque, void *destino)
 void __fastcall TForm1::Extraer1Click(TObject *Sender)
 {
 	InoTreeNode * addedInoTN = dynamic_cast<InoTreeNode *>(clickedNode);
-	extraerFichero(addedInoTN->inode);
+	if ((inodo[addedInoTN->inode].d2_mode & I_TYPE) == I_REGULAR) {
+		extraerFichero(addedInoTN->inode);
+	} else if ((inodo[addedInoTN->inode].d2_mode & I_TYPE) == I_DIRECTORY) {
+        // TODO: Implementar carpetas
+	}
 }
 //---------------------------------------------------------------------------
 
@@ -260,7 +270,30 @@ void __fastcall TForm1::TreeView1MouseDown(TObject *Sender, TMouseButton Button,
 {
 	if (Button == mbRight) {
 		clickedNode = TreeView1->GetNodeAt(X, Y);
-	}	
+	} else if (Button == mbLeft) {
+        ListView1->Items->Clear();
+		TTreeNode * node = TreeView1->GetNodeAt(X, Y);
+        InoTreeNode * itNode = dynamic_cast<InoTreeNode *>(node);
+		if ((itNode->tipo & I_TYPE) == I_DIRECTORY) {
+			for (int i = 0; i < node->Count; i++) {
+                itNode = dynamic_cast<InoTreeNode *>(node->Item[i]);
+				TListItem *items = ListView1->Items->Add();
+				items->Caption = itNode->nombre;
+				items->SubItems->Add(IntToStr(itNode->tam));
+				items->SubItems->Add(IntToStr(itNode->tipo));
+				items->SubItems->Add(DateTimeToStr(UnixToDateTime(itNode->mod)));
+
+				if ((itNode->tipo & I_TYPE) == I_DIRECTORY) {
+					items->StateIndex = 2;
+				} else if ((itNode->tipo & I_TYPE) == I_REGULAR) {
+				   items->StateIndex = 1;
+                }
+
+			}
+		}
+
+
+	}
 }
 //---------------------------------------------------------------------------
 
