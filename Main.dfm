@@ -3,8 +3,8 @@ object Form1: TForm1
   Top = 0
   BorderStyle = bsSingle
   Caption = 'MinImage'
-  ClientHeight = 448
-  ClientWidth = 690
+  ClientHeight = 593
+  ClientWidth = 841
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,15 +12,13 @@ object Form1: TForm1
   Font.Name = 'Tahoma'
   Font.Style = []
   Menu = MainMenu1
-  OldCreateOrder = False
   Position = poMainFormCenter
-  PixelsPerInch = 96
   TextHeight = 13
   object Splitter1: TSplitter
     Left = 185
     Top = 0
     Width = 2
-    Height = 429
+    Height = 574
     Constraints.MaxWidth = 2
     Constraints.MinWidth = 2
     ExplicitLeft = 129
@@ -31,7 +29,7 @@ object Form1: TForm1
     Left = 0
     Top = 0
     Width = 185
-    Height = 429
+    Height = 574
     Align = alLeft
     Indent = 19
     PopupMenu = PopupMenu1
@@ -40,47 +38,49 @@ object Form1: TForm1
     OnCreateNodeClass = TreeView1CreateNodeClass
     OnMouseDown = TreeView1MouseDown
     Items.NodeData = {
-      030100000020000000000000000000000000000000FFFFFFFF00000000000000
-      000200000001012F0026000000010000000000000001000000FFFFFFFF000000
-      000000000000000000010472006F006F00740024000000020000000000000002
-      000000FFFFFFFF00000000000000000100000001037500730072002400000003
-      0000000000000003000000FFFFFFFF0000000000000000010000000103730072
-      0063002A000000000000000000000001000000FFFFFFFF000000000000000000
+      070100000009540054007200650065004E006F00640065002100000000000000
+      0000000000000000FFFFFFFF0000000000000000000200000001012F00000027
+      000000010000000000000001000000FFFFFFFF00000000000000000000000000
+      010472006F006F007400000025000000020000000000000002000000FFFFFFFF
+      0000000000000000000100000001037500730072000000250000000300000000
+      00000003000000FFFFFFFF000000000000000000010000000103730072006300
+      00002B000000000000000000000001000000FFFFFFFF00000000000000000000
       00000001066B00650072006E0065006C00}
-    ExplicitLeft = -4
-    ExplicitTop = -6
+    ExplicitHeight = 542
   end
   object ListView1: TListView
     Left = 187
     Top = 0
-    Width = 503
-    Height = 429
+    Width = 654
+    Height = 574
     Align = alClient
     Columns = <
       item
         Caption = 'Nombre'
+        Width = 150
       end
       item
         Caption = 'Tama'#241'o'
+        Width = 80
       end
       item
         Caption = 'Tipo'
+        Width = 80
       end
       item
         Caption = 'Modificado'
+        Width = 150
       end>
     ParentShowHint = False
     ShowHint = False
     StateImages = ImageList1
     TabOrder = 1
     ViewStyle = vsReport
-    ExplicitLeft = 191
-    ExplicitTop = -6
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 429
-    Width = 690
+    Top = 574
+    Width = 841
     Height = 19
     Panels = <
       item
@@ -100,6 +100,8 @@ object Form1: TForm1
         Width = 50
       end>
     PopupMenu = PopupMenu1
+    ExplicitTop = 542
+    ExplicitWidth = 831
   end
   object OpenDialog1: TOpenDialog
     FileName = 'Y:\fda.img'
@@ -389,6 +391,14 @@ object Form1: TForm1
     object Extraer1: TMenuItem
       Caption = 'Extraer'
       OnClick = Extraer1Click
+    end
+    object Aadir1: TMenuItem
+      Caption = 'Anadir'
+      OnClick = Anadir1Click
+    end
+    object Borrar1: TMenuItem
+      Caption = 'Borrar'
+      OnClick = Borrar1Click
     end
   end
   object SaveDialog1: TSaveDialog

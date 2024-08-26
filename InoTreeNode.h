@@ -2,15 +2,19 @@
 
 #ifndef InoTreeNodeH
 #define InoTreeNodeH
+#include <vcl.h>
 #include "..\fda\usr\src\include\dirent.h"
-class InoTreeNode : TTreeNode {
+#include "Driver\DirEntry.h"
+class InoTreeNode : public TTreeNode {
 public:
 	int inode;
+	minixfs::DirEntry *entry;
 	int tam;
 	char nombre[DIRSIZ];
 	int tipo;
 	long mod;
-    InoTreeNode *hijos;
+	InoTreeNode *hijos;
+    std::filesystem::path path;
 };
 //---------------------------------------------------------------------------
 #endif
